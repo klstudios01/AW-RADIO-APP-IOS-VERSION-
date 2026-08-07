@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AW Radio - Web Admin Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon">📻</div>
+                <h2>AW RADIO <span>ADMIN</span></h2>
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="nav-btn active" id="btn-dashboard" onclick="switchTab('dashboard')">📊 Dashboard & Analytics</button>
+                <button class="nav-btn" id="btn-stations" onclick="switchTab('stations')">📻 Radio Stations</button>
+                <button class="nav-btn" id="btn-schedules" onclick="switchTab('schedules')">📅 Schedules & Programs</button>
+                <button class="nav-btn" id="btn-news" onclick="switchTab('news')">📰 News Publishing</button>
+                <button class="nav-btn" id="btn-notifications" onclick="switchTab('notifications')">🔔 Push Notifications</button>
+                <button class="nav-btn" id="btn-users" onclick="switchTab('users')">👥 User Management</button>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">A</div>
+                    <div>
+                        <p class="user-name">Admin Director</p>
+                        <p class="user-role">Super Admin</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Navbar -->
+            <header class="topbar">
+                <h1 id="page-title">Dashboard & Listener Analytics</h1>
+                <div class="actions">
+                    <button class="btn btn-accent" onclick="openModal('stationModal')">+ New Radio Station</button>
+                    <button class="btn btn-primary" onclick="openModal('newsModal')">+ Publish News Article</button>
+                </div>
+            </header>
+
+            <!-- 1. Dashboard Tab -->
+            <section id="tab-dashboard" class="tab-content active">
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <span class="icon">🎧</span>
+                            <span class="badge live">LIVE</span>
+                        </div>
+                        <h3>Active Listeners</h3>
+                        <p class="value" id="active-listeners">16,670</p>
+                        <span class="trend positive">↑ 12.4% vs yesterday</span>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <span class="icon">📻</span>
+                        </div>
+                        <h3>Live Streams</h3>
+                        <p class="value" id="total-stations-count">4 Stations</p>
+                        <span class="subtext">100% Stream Uptime</span>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <span class="icon">📰</span>
+                        </div>
+                        <h3>Published News</h3>
+                        <p class="value" id="total-news-count">3 Articles</p>
+                        <span class="subtext">4 News Categories</span>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <span class="icon">📱</span>
+                        </div>
+                        <h3>iOS App Installs</h3>
+                        <p class="value">8,420</p>
+                        <span class="trend positive">↑ 8.2% this week</span>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h2>Realtime Active Listener Breakdown</h2>
+                    <canvas id="listenersChart" height="100"></canvas>
+                </div>
+            </section>
+
+            <!-- 2. Stations Tab -->
+            <section id="tab-stations" class="tab-content">
+                <div class="card">
+                    <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;">
+                        <h2>Radio Streams Management</h2>
+                        <button class="btn btn-accent" onclick="openModal('stationModal')">+ Add Station</button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Station</th>
+                                <th>Category</th>
+                                <th>Frequency</th>
+                                <th>Listeners</th>
+                                <th>Stream URL</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stations-table-body">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 3. Schedules & Programs Tab -->
+            <section id="tab-schedules" class="tab-content">
+                <div class="card">
+                    <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;">
+                        <h2>Broadcast Programs & Schedules</h2>
+                        <button class="btn btn-accent" onclick="openModal('scheduleModal')">+ Schedule New Program</button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Program Title</th>
+                                <th>Station</th>
+                                <th>Presenter</th>
+                                <th>Time Slot</th>
+                                <th>Category</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="schedules-table-body">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 4. News Publishing Tab -->
+            <section id="tab-news" class="tab-content">
+                <div class="card">
+                    <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;">
+                        <h2>Published News & Articles</h2>
+                        <button class="btn btn-primary" onclick="openModal('newsModal')">+ Publish Article</button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Article Title</th>
+                                <th>Category</th>
+                                <th>Author</th>
+                                <th>Published Date</th>
+                                <th>Read Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="news-table-body">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 5. Push Notifications Tab -->
+            <section id="tab-notifications" class="tab-content">
+                <div class="card" style="margin-bottom: 24px;">
+                    <h2>Send Broadcast Push Notification</h2>
+                    <form id="push-form" style="margin-top: 16px; display: flex; flex-direction: column; gap: 16px;">
+                        <div>
+                            <label style="font-size: 12px; color: #94a3b8; font-weight: 600;">Notification Title</label>
+                            <input type="text" id="notif-title" placeholder="e.g. Live Worship Session Starting Now!" required style="width: 100%; padding: 12px; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: white; margin-top: 6px;">
+                        </div>
+                        <div>
+                            <label style="font-size: 12px; color: #94a3b8; font-weight: 600;">Message Body</label>
+                            <textarea id="notif-body" rows="3" placeholder="Enter message text for listeners..." required style="width: 100%; padding: 12px; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: white; margin-top: 6px;"></textarea>
+                        </div>
+                        <div style="display: flex; gap: 16px;">
+                            <div style="flex:1;">
+                                <label style="font-size: 12px; color: #94a3b8; font-weight: 600;">Target Audience</label>
+                                <select id="notif-target" style="width: 100%; padding: 12px; border-radius: 10px; background: #1e293b; border: 1px solid rgba(255,255,255,0.1); color: white; margin-top: 6px;">
+                                    <option value="all">All iOS Listeners</option>
+                                    <option value="gospel">Gospel Listeners</option>
+                                    <option value="news">News Subscribers</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-accent" style="align-self: flex-end; height: 46px;">🚀 Send Notification Now</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h2>Notification History</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Message</th>
+                                <th>Target</th>
+                                <th>Sent Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="notifications-table-body">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 6. User Management Tab -->
+            <section id="tab-users" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Registered App Users & Roles</h2>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>User Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Listening Time</th>
+                                <th>Joined Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal 1: Add/Edit Station -->
+    <div class="modal-overlay" id="stationModal">
+        <div class="modal-content">
+            <h2>Add New Radio Station</h2>
+            <form id="station-form">
+                <div class="form-group">
+                    <label>Station Name</label>
+                    <input type="text" id="station-name" required placeholder="e.g. AW Jazz & Chill">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="station-category">
+                        <option value="Gospel">Gospel</option>
+                        <option value="News">News</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Talk Shows">Talk Shows</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Frequency</label>
+                    <input type="text" id="station-freq" required placeholder="e.g. 101.3 FM">
+                </div>
+                <div class="form-group">
+                    <label>Stream URL</label>
+                    <input type="url" id="station-url" required placeholder="https://stream.zeno.fm/...">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('stationModal')">Cancel</button>
+                    <button type="submit" class="btn btn-accent">Save Station</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 2: Publish News Article -->
+    <div class="modal-overlay" id="newsModal">
+        <div class="modal-content">
+            <h2>Publish News Article</h2>
+            <form id="news-form">
+                <div class="form-group">
+                    <label>Article Title</label>
+                    <input type="text" id="news-title" required placeholder="Article title...">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="news-category">
+                        <option value="Technology">Technology</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Education">Education</option>
+                        <option value="Gospel">Gospel</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Author</label>
+                    <input type="text" id="news-author" required placeholder="AW Media Desk">
+                </div>
+                <div class="form-group">
+                    <label>Content</label>
+                    <textarea id="news-content" rows="4" required placeholder="Article body..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('newsModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Publish Article</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 3: Schedule Program -->
+    <div class="modal-overlay" id="scheduleModal">
+        <div class="modal-content">
+            <h2>Schedule New Program</h2>
+            <form id="schedule-form">
+                <div class="form-group">
+                    <label>Program Title</label>
+                    <input type="text" id="sched-title" required placeholder="e.g. Night Worship">
+                </div>
+                <div class="form-group">
+                    <label>Presenter Name</label>
+                    <input type="text" id="sched-presenter" required placeholder="e.g. Pastor David">
+                </div>
+                <div class="form-group">
+                    <label>Time Slot</label>
+                    <input type="text" id="sched-time" required placeholder="e.g. 08:00 PM - 10:00 PM">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('scheduleModal')">Cancel</button>
+                    <button type="submit" class="btn btn-accent">Save Program</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

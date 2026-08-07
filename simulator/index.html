@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AW Radio - iOS Mobile Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Mobile Simulator Screen Elements */
+        .header-bar {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .badge-live {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        .hero-card {
+            margin: 0 16px 20px 16px;
+            height: 200px;
+            border-radius: 20px;
+            background: linear-gradient(180deg, rgba(37, 99, 235, 0.3), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hero-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .listen-btn {
+            background: linear-gradient(135deg, #fb923c, #f97316);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 13px;
+            cursor: pointer;
+            width: fit-content;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+        }
+
+        .category-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 0 16px 16px 16px;
+        }
+
+        .pill {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 13px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .pill.active {
+            background: #2563eb;
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .station-item {
+            margin: 0 16px 10px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .station-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        /* Bottom Tab Bar */
+        .tab-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: 16px;
+            z-index: 90;
+        }
+
+        .nav-tab {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .nav-tab.active {
+            color: #f97316;
+        }
+
+        .nav-tab-icon {
+            font-size: 18px;
+        }
+
+        /* Floating Mini Player Bar */
+        .mini-player {
+            position: absolute;
+            bottom: 80px;
+            left: 12px;
+            right: 12px;
+            height: 54px;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            padding: 0 14px;
+            gap: 12px;
+            z-index: 85;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            cursor: pointer;
+        }
+
+        /* Full Expanded Player Sheet */
+        .expanded-sheet {
+            position: absolute;
+            inset: 0;
+            background: #0f172a;
+            z-index: 200;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+            display: flex;
+            flex-direction: column;
+            padding: 48px 24px 32px 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="simulator-workspace">
+        <div class="workspace-controls">
+            <span class="device-title"> iPhone 15 Pro Mobile Simulator</span>
+            <button class="sim-btn" onclick="togglePlayPause()">Toggle Audio Stream</button>
+            <button class="sim-btn" onclick="expandPlayer(true)">Open Live Player</button>
+            <a href="../admin-portal/index.html" target="_blank" class="sim-btn" style="background: #f97316; text-decoration: none; display: inline-flex; align-items: center;">🖥️ Open Admin Portal</a>
+        </div>
+
+        <!-- iPhone Hardware Casing -->
+        <div class="iphone-frame">
+            <!-- iOS Dynamic Island -->
+            <div class="dynamic-island-container">
+                <div class="dynamic-island" id="dynamic-island" onclick="expandPlayer(true)">
+                    <div class="island-left">
+                        <div class="island-icon">📻</div>
+                        <div class="island-text">
+                            <span class="island-title" id="island-title">AW Radio Main</span>
+                            <span class="island-subtitle" id="island-sub">Morning Glory Drive</span>
+                        </div>
+                    </div>
+                    <div class="island-right">
+                        <div class="waveform-mini" id="island-waveform" style="display: none;">
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- iOS Status Bar -->
+            <div class="status-bar">
+                <span id="status-clock">09:41</span>
+                <div class="status-right">
+                    <span>5G</span>
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <!-- Main App Viewport -->
+            <div class="screen-viewport">
+                <!-- Home Screen Tab -->
+                <div id="page-home" class="tab-page">
+                    <div class="header-bar">
+                        <div>
+                            <div style="font-size: 10px; color: #f97316; font-weight: 800; letter-spacing: 1px;">GOOD MORNING</div>
+                            <h2 style="font-size: 24px; font-weight: 800;">AW Listener</h2>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); width: 36px; height: 36px; border-radius: 18px; display: flex; align-items: center; justify-content: center;">🔔</div>
+                    </div>
+
+                    <!-- Live Hero Broadcast Card -->
+                    <div class="hero-card">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span class="badge-live">● LIVE BROADCAST</span>
+                            <span style="font-size: 11px; opacity: 0.8;">🎧 4.8K listeners</span>
+                        </div>
+                        <div>
+                            <div class="hero-title">Morning Glory Drive</div>
+                            <div style="font-size: 12px; opacity: 0.8; margin-top: 2px;">Host: Pastor David Miller • 104.5 FM</div>
+                        </div>
+                        <button class="listen-btn" onclick="togglePlayPause('station-01')">
+                            <span id="hero-play-btn-text">LISTEN LIVE NOW</span>
+                        </button>
+                    </div>
+
+                    <!-- Category Pills -->
+                    <div class="category-pills">
+                        <div class="pill active">All</div>
+                        <div class="pill">Gospel</div>
+                        <div class="pill">News</div>
+                        <div class="pill">Sports</div>
+                        <div class="pill">Talk Shows</div>
+                    </div>
+
+                    <!-- Radio Stations List -->
+                    <h3 style="font-size: 16px; margin: 0 16px 12px 16px;">Radio Stations</h3>
+                    <div class="station-item" onclick="togglePlayPause('station-01')">
+                        <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=600&q=80" class="station-img">
+                        <div style="flex:1;">
+                            <div style="font-weight: 700; font-size: 14px;">AW Radio Main Stream</div>
+                            <div style="font-size: 11px; opacity: 0.7;">Listen Live. Anytime. Anywhere.</div>
+                        </div>
+                        <div style="color: #f97316; font-size: 22px;">▶</div>
+                    </div>
+
+                    <div class="station-item" onclick="togglePlayPause('station-02')">
+                        <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=600&q=80" class="station-img">
+                        <div style="flex:1;">
+                            <div style="font-weight: 700; font-size: 14px;">AW News & Talk 24/7</div>
+                            <div style="font-size: 11px; opacity: 0.7;">Your Daily Voice of Truth</div>
+                        </div>
+                        <div style="color: #f97316; font-size: 22px;">▶</div>
+                    </div>
+
+                    <div class="station-item" onclick="togglePlayPause('station-03')">
+                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80" class="station-img">
+                        <div style="flex:1;">
+                            <div style="font-weight: 700; font-size: 14px;">AW Praise & Worship</div>
+                            <div style="font-size: 11px; opacity: 0.7;">Uplifting Faith & Inspiration</div>
+                        </div>
+                        <div style="color: #f97316; font-size: 22px;">▶</div>
+                    </div>
+                </div>
+
+                <!-- Schedule Tab -->
+                <div id="page-schedule" class="tab-page" style="display: none; padding: 16px;">
+                    <h2 style="font-size: 24px; font-weight: 800;">Today's Schedule</h2>
+                    <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 12px;">
+                        <div style="background: rgba(255,255,255,0.05); padding: 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
+                            <div style="color: #f97316; font-size: 12px; font-weight: 800;">06:00 AM - 10:00 AM</div>
+                            <div style="font-weight: 700; font-size: 16px; margin-top: 4px;">Morning Glory Drive</div>
+                            <div style="font-size: 12px; opacity: 0.7;">Host: Pastor David Miller</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
+                            <div style="color: #f97316; font-size: 12px; font-weight: 800;">10:00 AM - 02:00 PM</div>
+                            <div style="font-weight: 700; font-size: 16px; margin-top: 4px;">Midday Community Forum</div>
+                            <div style="font-size: 12px; opacity: 0.7;">Host: Sarah Jenkins</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Tab -->
+                <div id="page-news" class="tab-page" style="display: none; padding: 16px;">
+                    <h2 style="font-size: 24px; font-weight: 800;">Latest News</h2>
+                    <div style="margin-top: 16px; background: rgba(255,255,255,0.05); padding: 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="color: #f97316; font-size: 10px; font-weight: 800;">TECHNOLOGY</div>
+                        <div style="font-weight: 700; font-size: 15px; margin-top: 4px;">AW Radio Expands Live Streaming to Apple Dynamic Island & CarPlay</div>
+                        <div style="font-size: 11px; opacity: 0.6; margin-top: 6px;">3 min read • AW Desk</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Mini Player Bar -->
+            <div class="mini-player" id="mini-player-bar" onclick="expandPlayer(true)">
+                <div style="width: 36px; height: 36px; background: #2563eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px;">📻</div>
+                <div style="flex:1;">
+                    <div id="mini-title" style="font-size: 13px; font-weight: 700;">AW Radio Main Stream</div>
+                    <div id="mini-sub" style="font-size: 11px; opacity: 0.7;">Morning Glory Drive</div>
+                </div>
+                <button onclick="event.stopPropagation(); togglePlayPause();" style="background: #f97316; border: none; width: 32px; height: 32px; border-radius: 16px; color: white; cursor: pointer; font-size: 14px;">
+                    <span id="mini-play-icon">▶</span>
+                </button>
+            </div>
+
+            <!-- Bottom Navigation Bar -->
+            <div class="tab-bar">
+                <button class="nav-tab active" id="tab-btn-home" onclick="switchTab('home')">
+                    <span class="nav-tab-icon">🏠</span>
+                    <span>Home</span>
+                </button>
+                <button class="nav-tab" id="tab-btn-schedule" onclick="switchTab('schedule')">
+                    <span class="nav-tab-icon">📅</span>
+                    <span>Schedule</span>
+                </button>
+                <button class="nav-tab" id="tab-btn-news" onclick="switchTab('news')">
+                    <span class="nav-tab-icon">📰</span>
+                    <span>News</span>
+                </button>
+            </div>
+
+            <!-- Full Expanded Player Sheet Modal -->
+            <div class="expanded-sheet" id="expanded-player-sheet">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <button onclick="expandPlayer(false)" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer;">✕</button>
+                    <span style="font-size: 11px; font-weight: 800; color: #f97316; letter-spacing: 2px;">LIVE PLAYER</span>
+                    <span>⏱</span>
+                </div>
+
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 20px;">
+                    <img id="exp-artwork" src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=600&q=80" style="width: 220px; height: 220px; border-radius: 24px; box-shadow: 0 12px 32px rgba(0,0,0,0.6);">
+                    <div>
+                        <h2 id="exp-title" style="font-size: 22px; font-weight: 800;">AW Radio Main Stream</h2>
+                        <p id="exp-program" style="font-size: 15px; opacity: 0.8; margin-top: 4px;">Morning Glory Drive</p>
+                        <p id="exp-presenter" style="font-size: 12px; color: #f97316; margin-top: 4px;">Presenter: Pastor David Miller</p>
+                    </div>
+
+                    <button onclick="togglePlayPause()" style="width: 70px; height: 70px; border-radius: 35px; background: linear-gradient(135deg, #fb923c, #f97316); border: none; color: white; font-size: 28px; cursor: pointer; box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);">
+                        <span id="exp-play-btn">▶</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- iOS Home Indicator -->
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
