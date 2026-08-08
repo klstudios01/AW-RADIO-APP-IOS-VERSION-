@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #0f172a;
+    background-color: #07140a;
     color: #f8fafc;
     min-height: 100vh;
 }
@@ -19,7 +19,7 @@ body {
 /* Sidebar Styling */
 .sidebar {
     width: 280px;
-    background-color: #1e293b;
+    background-color: #0d2613;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
@@ -44,7 +44,7 @@ body {
 }
 
 .brand span {
-    color: #f97316;
+    color: #fbc02d;
     font-size: 12px;
 }
 
@@ -69,7 +69,7 @@ body {
 }
 
 .nav-btn:hover, .nav-btn.active {
-    background-color: #2563eb;
+    background-color: #2e7d32;
     color: #ffffff;
 }
 
@@ -87,13 +87,13 @@ body {
 .avatar {
     width: 36px;
     height: 36px;
-    background: linear-gradient(135deg, #fb923c, #f97316);
+    background: linear-gradient(135deg, #ffd54f, #fbc02d);
     border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 800;
-    color: white;
+    color: #07140a;
 }
 
 .user-name {
@@ -134,7 +134,7 @@ body {
     padding: 10px 18px;
     border-radius: 20px;
     border: none;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     font-size: 14px;
     transition: transform 0.15s ease;
@@ -145,12 +145,12 @@ body {
 }
 
 .btn-accent {
-    background: linear-gradient(135deg, #fb923c, #f97316);
-    color: #fff;
+    background: linear-gradient(135deg, #ffd54f, #fbc02d);
+    color: #07140a;
 }
 
 .btn-primary {
-    background-color: #2563eb;
+    background-color: #2e7d32;
     color: #fff;
 }
 
@@ -205,7 +205,7 @@ body {
 }
 
 .trend.positive {
-    color: #22c55e;
+    color: #4caf50;
     font-size: 12px;
     font-weight: 600;
 }
@@ -266,13 +266,13 @@ body {
 }
 
 .modal-content {
-    background: #1e293b;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #0d2613;
+    border: 1px solid rgba(251, 192, 45, 0.25);
     border-radius: 20px;
     padding: 28px;
     width: 100%;
     max-width: 480px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
 }
 
 .modal-content h2 {
@@ -304,7 +304,7 @@ body {
 }
 
 .form-group select {
-    background: #0f172a;
+    background: #07140a;
 }
 
 .modal-actions {

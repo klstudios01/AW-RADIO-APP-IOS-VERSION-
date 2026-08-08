@@ -76,7 +76,7 @@ function renderStationsTable() {
     tbody.innerHTML = mockStations.map((s, idx) => `
         <tr>
             <td><strong>${s.name}</strong></td>
-            <td><span style="color:#f97316;font-weight:600;">${s.category}</span></td>
+            <td><span style="color:#fbc02d;font-weight:700;">${s.category}</span></td>
             <td>${s.frequency}</td>
             <td>${s.listeners.toLocaleString()} listeners</td>
             <td style="font-family:monospace;font-size:12px;">${s.streamUrl}</td>
@@ -110,7 +110,7 @@ function renderSchedulesTable() {
             <td><strong>${sch.title}</strong></td>
             <td>${sch.station}</td>
             <td>${sch.presenter}</td>
-            <td><span style="color:#f97316;font-weight:600;">${sch.timeSlot}</span></td>
+            <td><span style="color:#fbc02d;font-weight:700;">${sch.timeSlot}</span></td>
             <td>${sch.category}</td>
             <td><button class="btn btn-secondary" style="padding:4px 10px;font-size:12px;">Edit</button></td>
         </tr>
@@ -123,7 +123,7 @@ function renderNewsTable() {
     tbody.innerHTML = mockNews.map(n => `
         <tr>
             <td><strong>${n.title}</strong></td>
-            <td><span style="color:#2563eb;font-weight:600;">${n.category}</span></td>
+            <td><span style="color:#4caf50;font-weight:700;">${n.category}</span></td>
             <td>${n.author}</td>
             <td>${n.date}</td>
             <td>${n.readTime}</td>
@@ -142,9 +142,9 @@ function renderNotificationsTable() {
         <tr>
             <td><strong>${notif.title}</strong></td>
             <td>${notif.message}</td>
-            <td><span style="color:#f97316;">${notif.target}</span></td>
+            <td><span style="color:#fbc02d;font-weight:700;">${notif.target}</span></td>
             <td>${notif.date}</td>
-            <td><span class="badge live" style="background:rgba(34,197,94,0.2);color:#22c55e;border-color:#22c55e;">${notif.status}</span></td>
+            <td><span class="badge live" style="background:rgba(76,175,80,0.2);color:#4caf50;border-color:#4caf50;">${notif.status}</span></td>
         </tr>
     `).join('');
 }
@@ -157,7 +157,7 @@ function renderUsersTable() {
             <td><strong>${user.name}</strong></td>
             <td>${user.email}</td>
             <td>
-                <span style="padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;${user.role === 'Admin' ? 'background:rgba(249,115,22,0.2);color:#f97316;' : user.role === 'Presenter' ? 'background:rgba(37,99,235,0.2);color:#2563eb;' : 'background:rgba(255,255,255,0.1);color:#fff;'}">
+                <span style="padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;${user.role === 'Admin' ? 'background:rgba(251,192,45,0.2);color:#fbc02d;' : user.role === 'Presenter' ? 'background:rgba(76,175,80,0.2);color:#4caf50;' : 'background:rgba(255,255,255,0.1);color:#fff;'}">
                     ${user.role}
                 </span>
             </td>
@@ -179,8 +179,8 @@ function initChart() {
             datasets: [{
                 label: 'Active Listeners Today',
                 data: [4200, 3100, 11500, 14200, 16670, 15400, 9800],
-                borderColor: '#f97316',
-                backgroundColor: 'rgba(249, 115, 22, 0.15)',
+                borderColor: '#fbc02d',
+                backgroundColor: 'rgba(251, 192, 45, 0.15)',
                 fill: true,
                 tension: 0.4
             }]
