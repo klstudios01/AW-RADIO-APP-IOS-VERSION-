@@ -11,9 +11,9 @@ import Combine
 final class SupabaseClientManager {
     static let shared = SupabaseClientManager()
     
-    // Replace with your actual Supabase URL & Anon Key or load from Info.plist
-    var supabaseUrl: String = "https://your-project-id.supabase.co"
-    var supabaseAnonKey: String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    // Configured Supabase URL & Anon Key
+    var supabaseUrl: String = "https://sivtufqdhvfmllpdxute.supabase.co"
+    var supabaseAnonKey: String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpdnR1ZnFkaHZmbWxscGR4dXRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNjUzMjQsImV4cCI6MjEwMTk0MTMyNH0.UPWXSwJ6CA4HwtxbED_Ib_s1OSXh7xGR8rjgZcE4oHA"
     
     private init() {}
     

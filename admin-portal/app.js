@@ -1,4 +1,9 @@
-// AW Radio - Complete Functional Web Admin Portal JavaScript Logic
+// 0. Supabase Credentials Configuration
+const SUPABASE_CONFIG = {
+    url: "https://sivtufqdhvfmllpdxute.supabase.co",
+    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpdnR1ZnFkaHZmbWxscGR4dXRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNjUzMjQsImV4cCI6MjEwMTk0MTMyNH0.UPWXSwJ6CA4HwtxbED_Ib_s1OSXh7xGR8rjgZcE4oHA",
+    publicKey: "sb_publishable__dAH1-gI_CDsfF6dvjooDw_Js6t51MY"
+};
 
 // 1. Data Store
 const mockStations = [
