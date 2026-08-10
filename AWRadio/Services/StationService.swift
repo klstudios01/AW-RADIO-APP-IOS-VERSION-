@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class StationService {
     static let shared = StationService()
     

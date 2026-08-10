@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class ProgramService {
     static let shared = ProgramService()
     

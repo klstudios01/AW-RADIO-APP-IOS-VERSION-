@@ -110,7 +110,7 @@ struct HeroLiveCard: View {
                             Image(systemName: isCurrentStationPlaying ? "pause.fill" : "play.fill")
                                 .font(.system(size: 18, weight: .bold))
                             Text(isCurrentStationPlaying ? "PAUSE STREAM" : "LISTEN LIVE NOW")
-                                .font(.system(size: 14, weight: .extrabold, design: .rounded))
+                                .font(.system(size: 14, weight: .heavy, design: .rounded))
                         }
                         .foregroundColor(.white)
                         .padding(.horizontal, 20)

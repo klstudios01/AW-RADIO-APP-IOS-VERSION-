@@ -8,6 +8,7 @@
 import Foundation
 import MediaPlayer
 
+@MainActor
 final class NowPlayingInfoManager {
     static let shared = NowPlayingInfoManager()
     

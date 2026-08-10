@@ -34,7 +34,7 @@ struct AnimatedWaveformView: View {
                 isAnimating = true
             }
         }
-        .onChange(of: isPlaying) { newValue in
+        .onChange(of: isPlaying) { _, newValue in
             isAnimating = newValue
         }
     }

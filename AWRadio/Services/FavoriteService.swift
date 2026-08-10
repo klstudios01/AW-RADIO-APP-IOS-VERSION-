@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class FavoriteService {
     static let shared = FavoriteService()
     

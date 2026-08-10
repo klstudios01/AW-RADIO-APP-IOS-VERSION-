@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class NewsService {
     static let shared = NewsService()
     

@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class LocalCacheManager {
     static let shared = LocalCacheManager()
     

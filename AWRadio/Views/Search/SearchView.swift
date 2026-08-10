@@ -39,7 +39,7 @@ struct SearchView: View {
                         .foregroundColor(.accentOrange)
                     TextField("Search stations, presenters, shows...", text: $viewModel.query)
                         .foregroundColor(.white)
-                        .onChange(of: viewModel.query) { _ in
+                        .onChange(of: viewModel.query) {
                             viewModel.performSearch()
                         }
                     
