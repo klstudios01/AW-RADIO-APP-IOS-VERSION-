@@ -63,3 +63,29 @@ extension Color {
         endPoint: .bottomTrailing
     )
 }
+
+extension LinearGradient {
+    static let brandGradient = LinearGradient(
+        colors: [.emeraldGreenLight, .emeraldGreenDark],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
+    
+    static let accentGradient = LinearGradient(
+        colors: [.accentYellowLight, .accentYellow],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
+    
+    static let heroGradient = LinearGradient(
+        colors: [Color.emeraldGreenLight.opacity(0.8), Color.darkBackground.opacity(0.95)],
+        startPoint: .top,
+        endPoint: .bottom
+    )
+    
+    static let glassGradient = LinearGradient(
+        colors: [Color.white.opacity(0.14), Color.white.opacity(0.03)],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
+}

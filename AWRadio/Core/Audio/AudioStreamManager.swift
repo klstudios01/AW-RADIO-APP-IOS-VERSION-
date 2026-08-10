@@ -10,7 +10,7 @@ import AVFoundation
 import MediaPlayer
 import Combine
 
-enum PlaybackState {
+enum PlaybackState: Equatable {
     case stopped
     case buffering
     case playing
