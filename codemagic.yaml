@@ -1,0 +1,20 @@
+workflows:
+  ios-swift-app:
+    name: AW Radio iOS Build
+    max_build_duration: 60
+    instance_type: mac_mini_m1
+    environment:
+      xcode: latest
+    scripts:
+      - name: Build iOS Application
+        script: |
+          xcodebuild build \
+            -project "AWRadio.xcodeproj" \
+            -scheme "AWRadio" \
+            -sdk iphoneos \
+            -configuration Release \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+    artifacts:
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/Products/**/*.app
